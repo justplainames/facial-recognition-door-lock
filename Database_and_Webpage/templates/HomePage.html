@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script type = "text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script type = "text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type = "text/javascript"  src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+    <script type = "text/javascript"  src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type = "text/javascript"  src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type = "text/javascript"  src="https://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+  
+.topnav {
+
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+.button {
+  background-color: #2227b5 ;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.Header2{
+    padding-top:30px
+    }
+.Header{
+    padding-top:50px
+    }
+ .jumbotron-fluid {
+            background-image: url('http://cdn.home-designing.com/wp-content/uploads/2013/10/glass-wall.jpeg');
+            background-size: cover;
+            padding-left: 0px;
+            padding-right: 0px;
+            padding-top: 0px;
+            min-height: 200px;
+            background-position: center;
+            text-align: left;
+            color: white;
+            font-family: Arial;
+        }
+.hide_me {display: none;}
+</style>
+    <script>
+function downloadCSV(csv, filename) {
+    var csvFile;
+    var downloadLink;
+    // CSV file
+    csvFile = new Blob([csv], {type: "text/csv"});
+    // Download link
+    downloadLink = document.createElement("a");
+    // File name
+    downloadLink.download = filename;
+    // Create a link to the file
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+    // Hide download link
+    downloadLink.style.display = "none";
+    // Add the link to DOM
+    document.body.appendChild(downloadLink);
+    // Click download link
+    downloadLink.click();
+}
+function exportTableToCSV(filename) {
+    var csv = [];
+    var rows = document.querySelectorAll("table tr");
+    for (var i = 0; i < rows.length; i++) {
+        var row = [], cols = rows[i].querySelectorAll("#row1,#row2 ,#col1,#col3");
+        
+        for (var j = 0; j < cols.length; j++) 
+                row.push(cols[j].innerText);
+        csv.push(row.join(","));        
+    }
+    // Download CSV file
+    downloadCSV(csv.join("\n"), filename);
+}
+</script>
+<!--     
+    <h1 class="Header">Facial Recognition Door Access</h1> -->
+</head>
+<body>
+<div class="jumbotron-fluid">
+            <h1 class="Header2" style="padding-left: 50px;">Facial Recognition Door Access</h1>
+            <h2 style="padding-left: 50px;">Better Lives </h2>
+    </div>
+<div class="topnav">
+<a class="active" href="/">Home</a>
+  <a href="/AboutUs">About Us</a>
+
+</div>
+    
+  <div class="w3-container">
+  <h2 class="Header">User Access History</h2>
+   
+  <body>
+
+                <div class="card">
+      <div class="card-body">
+        <div class="mt-4">
+ <table id="proxies" class="display table responsive" style="width: 100%" method="post">
+              <thead>
+                <tr>
+		    <th id="col3">DateTime</th>
+                    <th id="col1">User Name</th>
+                     
+
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in results %}
+                  <tr>              
+                      <td id="row2">{{row['Time'].split('.')[0]}}</td>
+                      <td id="row1">{{row['Name']}}</td>  
+                                            
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <button onclick="exportTableToCSV('UserFiles.csv')" class=button>Download CSV</button>
+          </div>
+                    </div>
+            </div>
+
+  </body>
+  <script type="text/javascript">
+    $('#proxies').DataTable()
+
+  </script>
+
+
+</div>
+
+</body>
+</html>
