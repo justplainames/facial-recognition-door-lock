@@ -57,7 +57,7 @@ def onMessage(client, userdata, msg):
         print("Client side deny entry")
         
         #telegram bot to notify owner of un-authorized entry
-        base_url = 'https://api.telegram.org/bot1683250188:AAGwAK34XwAfBacNQ8M2OwzgGyrqg9CdJqM/sendMessage?chat_id=576078261&text={}'.format("Unknown user tried to enter room @"+dt_string)
+        base_url = 'asdfasdfdas={}'.format("Unknown user tried to enter room @"+dt_string)
         requests.get(base_url)
         print("Un-authorized user ID :"+userID+" tried to enter room @ "+dt_string)
         #print("User Entered \nID : "+userID+"\nPassword : :"+userPassword)
